@@ -1,47 +1,32 @@
-from PyQt6.QtCore import QSize, Qt
-from PyQt6.QtWidgets import QMainWindow, QLabel, QLineEdit, QVBoxLayout, QWidget
-from random import choice
-
-window_titles = [
-    'My App',
-    'My App',
-    'Still My App',
-    'Still My App',
-    'What on earth',
-    'What on earth',
-    'This is surprising',
-    'This is surprising',
-    'Something went wrong'
-]
+from PyQt6.QtGui import QIcon, QFont, QPixmap, QMovie
+from PyQt6.QtWidgets import QMainWindow, QLabel, QLineEdit,QWidget
 
 
-class MainWindow(QMainWindow):
+
+class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
-        self.n_times_clicked = 0
 
-        self.setWindowTitle("My app")
-        self.label = QLabel()
+        self.setGeometry(200, 200, 700, 400)
+        self.setWindowTitle("Python GUI Development")
+        self.setWindowIcon(QIcon("images/python.png"))
+        """
+        label = QLabel("Python GUI Development", self)
+        label.move(100, 100)
+        label.setFont(QFont("Times", 18))
+        label.setStyleSheet("color:red")
 
-        self.input = QLineEdit()
-        self.input.textChanged.connect(self.label.setText)
+        label.setNum(63637)
+        
 
-        layout = QVBoxLayout()
-        layout.addWidget(self.input)
-        layout.addWidget(self.label)
+        label = QLabel(self)
+        pixmap = QPixmap("images/python.png")
+        label.setPixmap(pixmap)
+        """
 
-        container = QWidget()
-        container.setLayout(layout)
+        label = QLabel(self)
+        movie = QMovie("images/sky.gif")
+        label.setMovie(movie)
+        movie.start()
 
-        self.setCentralWidget(container)
 
-    def button_was_clicked(self):
-        print("Clicked!!")
-        new_window_title = choice(window_titles)
-        print("Setting title: %s" % new_window_title)
-        self.setWindowTitle(new_window_title)
-
-    def window_title_changed(self, window_title):
-        print("Window title changed: %s" % window_title)
-        if window_title == 'Something went wrong':
-            self.button.setDisabled(True)
