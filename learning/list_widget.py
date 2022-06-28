@@ -25,6 +25,7 @@ class Window(QWidget):
         self.list_widget.insertItem(7, "Pascal")
         self.list_widget.insertItem(8, "JavaScript")
         self.list_widget.insertItem(9, "Rust")
+        self.list_widget.insertItem(10, "Go")
 
         vbox.addWidget(self.list_widget)
         self.setLayout(vbox)
