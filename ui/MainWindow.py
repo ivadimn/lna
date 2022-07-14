@@ -1,37 +1,67 @@
-from PyQt6.QtGui import QIcon, QFont, QPixmap, QMovie
-from PyQt6.QtWidgets import QMainWindow, QLabel, QLineEdit,QWidget, QPushButton, QMenu
-from PyQt6.QtCore import QSize
+from PyQt6.QtGui import QIcon, QFont, QPixmap, QMovie, QAction
+from PyQt6.QtWidgets import QStatusBar, QPushButton, QMainWindow
+from PyQt6.QtWidgets import QWidget, QTabWidget, QLabel, QMenuBar, QMenu, QToolBar, QTabBar
+from PyQt6.QtCore import QSize, Qt
+from ui.rp_table import RpTable
+
+def save_rp(data: tuple) -> None:
+    print(data)
 
 
-
-class MainWindow(QWidget):
+class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
+        self.setWindowTitle("My Awesome App")
         self.setGeometry(200, 200, 700, 400)
-        self.setWindowTitle("Python GUI QLineEdit")
-        self.setWindowIcon(QIcon("images/python.png"))
-        line_edit = QLineEdit(self)
-        line_edit.setFont(QFont("Courier", 12, QFont.Weight.DemiBold))
-        #line_edit.setText("Default text")
-        #line_edit.setPlaceholderText("Enter your name...")
-        #line_edit.setEnabled(False)
-        line_edit.setEchoMode(QLineEdit.EchoMode.Password)
+        self.tab = QTabWidget()
+        self.tab.setTabsClosable(True)
+        self.tab.tabCloseRequested.connect(self.close_tab)
+        self.setCentralWidget(self.tab)
 
-        #self.create_button()
+        toolbar = QToolBar("My main toolbar")
+        toolbar.setIconSize(QSize(16, 16))
+        self.addToolBar(toolbar)
 
-    """def create_button(self):
-        btn = QPushButton("Click", self)
-        btn.setGeometry(100, 100, 130, 40)
-        btn.setFont(QFont("Times", 14, QFont.Weight.ExtraBold))
-        btn.setIcon(QIcon("images/python.png"))
-        btn.setIconSize(QSize(32, 32))
+        rp_action = QAction(QIcon("images/table.png"), "Разделы персонала", self)
+        rp_action.setStatusTip("Посмотреть разделы персонала")
+        rp_action.triggered.connect(self.on_rp_action_event)
+        toolbar.addAction(rp_action)
 
-        #popup menu
-        menu = QMenu()
-        menu.setFont(QFont("Arial", 12, QFont.Weight.ExtraBold))
-        menu.setStyleSheet("background-color:blue")
-        menu.addAction("Copy")
-        menu.addAction("Cut")
-        menu.addAction("Paste")
-        btn.setMenu(menu)"""
+        os_action = QAction(QIcon("images/tree.png"), "Орг. структура", self)
+        os_action.setStatusTip("Посмотреть организационную структуру")
+        os_action.triggered.connect(self.on_rp_action_event)
+        toolbar.addAction(os_action)
+        self.setStatusBar(QStatusBar(self))
+
+        menu = self.menuBar()
+
+        file_menu = menu.addMenu("&Струкутура")
+        file_menu.addAction(rp_action)
+
+    def create_buttons(self):
+        btn_add = QPushButton("Add Tab")
+        btn_del = QPushButton("Delete Tab")
+        #self.hbox.addWidget(btn_add)
+        #self.hbox.addWidget(btn_del)
+
+    def create_menu(self) -> QMenuBar:
+        menuBar = QMenuBar(self)
+        menuFile = QMenu("&Структура", menuBar)
+        rp_action = QAction("Разделы персонала")
+        menuFile.addAction("Разделы персонала")
+        menuBar.addMenu(menuFile)
+        return menuBar
+
+    def on_rp_action_event(self, s):
+        rp_table = RpTable()
+        #self.tab.addTab("Разделы персонала")
+        self.tab.addTab(rp_table, "Разделы персонала")
+
+        print("click", s)
+        #dlg = RpDialog(save_rp)
+        #print(dlg.exec())
+
+    def close_tab(self, index: int):
+        self.tab.removeTab(index)
+
