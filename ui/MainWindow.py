@@ -12,8 +12,8 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("My Awesome App")
-        self.setGeometry(200, 200, 700, 400)
+        self.setWindowTitle("Checking data")
+        self.setGeometry(200, 200, 900, 400)
         self.tab = QTabWidget()
         self.tab.setTabsClosable(True)
         self.tab.tabCloseRequested.connect(self.close_tab)
