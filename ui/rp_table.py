@@ -43,3 +43,7 @@ class RpTable(QWidget):
         for j, d in enumerate(data):
             item = QTableWidgetItem(f"{d}")
             self.table.setItem(index, j, item)
+
+    def fill_table(self, data: list) -> None:
+        pass
+
