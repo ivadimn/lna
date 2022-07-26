@@ -31,5 +31,11 @@ class RpRepository(Repository):
             print(str(err))
             return -1
 
-    def delete(self, params: dict) -> None:
-        pass
+    def delete(self, params: tuple) -> int:
+        sql_delete = sql.gen_delete_by_id("orgs", "id")
+        try:
+            Db.delete(sql_delete, params)
+            return 1
+        except Error as err:
+            print(str(err))
+            return -1
