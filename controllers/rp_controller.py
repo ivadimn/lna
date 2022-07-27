@@ -6,21 +6,18 @@ from model_data.model import Rp
 
 class RpController(Controller):
 
-    def get_data(self) -> List[tuple]:
+    def get_data(self) -> List[Rp]:
         rep = RpRepository()
-        lst = []
-        for rp in rep.select(()):
-            lst.append(rp.row())
+        lst = [rp for rp in rep.select(())]
         return lst
 
-    def add_data(self, data: List[tuple]) -> bool:
+    def add_data(self, data: List[Rp]) -> bool:
         lst = []
         for rp in data:
-            lst.append(Rp(*rp))
+            lst.append(rp)
         rep = RpRepository()
         return True if rep.insert(lst) > 0 else False
 
-    def delete_data(self, data: List[tuple]) -> bool:
+    def delete_data(self, data: List[Rp]) -> bool:
         rep = RpRepository()
-        params = tuple(row[0] for row in data)
-        return True if rep.delete(params) > 0 else False
+        return True if rep.delete(data) > 0 else False

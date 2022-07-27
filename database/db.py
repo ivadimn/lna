@@ -23,7 +23,7 @@ class Db:
         return cursor.lastrowid
 
     @classmethod
-    def delete(cls, sql: str, params: tuple) -> int:
+    def delete(cls, sql: str, params: list) -> int:
         with sqlite3.connect("lna.db") as conn:
             if len(params) > 0:
                 for ps in params:

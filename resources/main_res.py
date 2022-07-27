@@ -9,7 +9,7 @@ main_res = {
 }
 
 rp_res = {
-    "HEADERS" : ["Ид.", "Наименование", "Организация"],
+    "HEADERS": ["Ид.", "Наименование", "Организация"],
     "ADD_EVENT": Event("images/database-insert.png", "Добавить", "Создать новый раздел персонала"),
     "EDIT_EVENT": Event("images/edit.png", "Изменить", "Изменить раздел персонала"),
     "DELETE_EVENT": Event("images/database-delete.png", "Удалить", "Удалить раздел персонала"),

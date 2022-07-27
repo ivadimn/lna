@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 from abc import ABC, abstractmethod
 
-@dataclass()
+
+@dataclass
 class Entity(ABC):
     id: int
 
@@ -15,4 +16,4 @@ class Rp(Entity):
     full_name: str
 
     def row(self) -> tuple:
-        return self.id, self.name, self.full_name
+        return str(self.id), self.name, self.full_name
