@@ -19,6 +19,7 @@ class RpDialog(QDialog):
         self.edit_org = None
         self.edit_name = None
         self.edit_id = None
+        self.data = None
         self.on_save = on_save
         self.initialize_ui()
         if data:

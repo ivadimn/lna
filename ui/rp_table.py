@@ -76,9 +76,6 @@ class RpTable(QWidget):
         contr = RpController()
         if contr.delete_data([rp]):
             self.model.del_rp(index)
-        #indexes = [self.model.index(row, column) for column in range(3)]
-        #for index in indexes:
-        #    print(index.data())
 
     def on_edit_rp(self):
         index = self.table_view.selectedIndexes()[0]
