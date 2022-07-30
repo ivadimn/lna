@@ -31,5 +31,14 @@ class RpRepository(Repository):
             print(str(err))
             return -1
 
-    def delete(self, params: dict) -> None:
-        pass
+    def delete(self, entities: List[Rp]) -> int:
+        sql_delete = sql.gen_delete_by_id("orgs", "id")
+        try:
+            list_values = []
+            for rp in entities:
+                list_values.append(tuple([rp.id]))
+            Db.delete(sql_delete, list_values)
+            return 1
+        except Error as err:
+            print(str(err))
+            return -1

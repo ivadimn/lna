@@ -46,3 +46,10 @@ def gen_insert(cls: type, table: str, autoincrement: bool = True) -> str:
     sql.pop()
     sql.append(")")
     return " ".join(sql)
+
+
+def gen_delete_by_id(table: str, key: str) -> str:
+    sql = list()
+    sql.append("DELETE FROM {0}".format(table))
+    sql.append("WHERE {0}.{1} = ?".format(table, key))
+    return " ".join(sql)
