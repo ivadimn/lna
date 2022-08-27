@@ -17,3 +17,11 @@ class Rp(Entity):
 
     def row(self) -> tuple:
         return str(self.id), self.name, self.full_name
+
+
+@dataclass
+class Pd(Entity):
+    name: str
+
+    def row(self) -> tuple:
+        return str(self.id), self.name
