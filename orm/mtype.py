@@ -1,4 +1,17 @@
 from dataclasses import dataclass
+from database.metadata import schema_data
+
+class A:
+    pass
+
+
+def creator(classname, bases, attrs):
+    return A
+
+
+class C(metaclass=creator):
+    def f(self):
+        print("hi")
 
 def get_first_name(self):
     return self.first_name
@@ -37,16 +50,32 @@ bases = (
 )
 
 
+def select(cls,  params:  dict): str
+
+
 class Meta(type):
 
     def __new__(cls, name, bases, attrs):
-        print("new")
-        fields = dict()
-        for key in attrs["__annotations__"].keys():
-            fields[key] = ""
-        print(attrs["__annotations__"])
-        attrs["fields"] = fields
+        # print("new")
+        # metadata = schema_data.get(name)
+        # setattr(cls, "__table__", metadata.get("table"))
+        # fields = []
+        # for field in metadata.get("fields"):
+        #     fields.append(field)
+        # print(fields)
+        # setattr(cls, "__fields__", fields)
         return super().__new__(cls, name, bases, attrs)
+
+    def __init__(cls, name, bases, attrs):
+        print("__init__")
+        metadata = schema_data.get(name)
+        setattr(cls, "__table__", metadata.get("table"))
+        fields = []
+        for field in metadata.get("fields"):
+            fields.append(field)
+        print(fields)
+        setattr(cls, "__fields__", fields)
+        super().__init__(name, bases, attrs)
 
 
 @dataclass
@@ -59,12 +88,18 @@ class Data(metaclass=Meta):
         return str(self.id), self.name, self.email
 
 
-#print(Data.__dict__.get("__dataclass_fields__"))
+print(Data.__table__)
+print(Data.__fields__)
 
-User = type("User", bases, attrs)
-user1 = User("John", "Test", "Tel00v14")
+# User = type("User", bases, attrs)
+# user1 = User("John", "Test", "Tel00v14")
+#
+# print(str(user1))
+# print(user1.get_first_name())
+# print(user1.get_last_name())
+# print(user1.get_middle_name())
 
-print(str(user1))
-print(user1.get_first_name())
-print(user1.get_last_name())
-print(user1.get_middle_name())
+DataClass = Data
+
+d = DataClass(10, "Name", "email")
+print(d.__table__)

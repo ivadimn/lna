@@ -31,3 +31,6 @@ class Db:
             else:
                 cursor = conn.execute(sql)
         return 1
+
+class Param:
+    def __init__(self, table: str, ):
