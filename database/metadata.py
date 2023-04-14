@@ -9,4 +9,5 @@ class OrgsTable:
 
 schema_data = {
     "Data": {"table": "table_name", "fields": ("id", "name", "email")},
+    "Org": OrgsTable,
 }

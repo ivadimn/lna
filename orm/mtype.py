@@ -1,5 +1,8 @@
 from dataclasses import dataclass
+from typing import Optional
+
 from database.metadata import schema_data
+from database.db import Param
 
 class A:
     pass
@@ -50,7 +53,18 @@ bases = (
 )
 
 
-def select(cls,  params:  dict): str
+def select(cls,  params: list) -> str:
+    sql = []
+    sql.append("SELECT")
+    table = cls.__table__
+    fields = []
+    for field in cls.__fields__:
+        fields.append(f"{table}.{field}")
+    sql.append(", ".join(fields))
+    sql.append(f"FROM {table}")
+    return " ".join(sql)
+
+
 
 
 class Meta(type):
@@ -103,3 +117,7 @@ DataClass = Data
 
 d = DataClass(10, "Name", "email")
 print(d.__table__)
+print(select(DataClass, []))
+m = schema_data.get("Org")
+print(m.NAME)
+print(m.Columns.ID)

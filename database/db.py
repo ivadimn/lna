@@ -33,4 +33,10 @@ class Db:
         return 1
 
 class Param:
-    def __init__(self, table: str, ):
+    def __init__(self, table: str, filed: str, op: str):
+        self.table = table
+        self.field = filed
+        self.op = op
+
+    def __str__(self):
+        return "{0}.{1}{2}?".format(self.table, self.field, self.op)
